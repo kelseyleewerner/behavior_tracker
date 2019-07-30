@@ -5,7 +5,7 @@ require "date"
 require "fileutils"
 
 OOB_URI = "urn:ietf:wg:oauth:2.0:oob".freeze
-APPLICATION_NAME = "Google Calendar API Ruby Quickstart".freeze
+APPLICATION_NAME = "Behavior Tracker".freeze
 CREDENTIALS_PATH = "credentials.json".freeze
 # The file token.yaml stores the user's access and refresh tokens, and is
 # created automatically when the authorization flow completes for the first
@@ -42,13 +42,23 @@ service = Google::Apis::CalendarV3::CalendarService.new
 service.client_options.application_name = APPLICATION_NAME
 service.authorization = authorize
 
-# Fetch the next 10 events for the user
-calendar_id = "primary"
+# Fetch all Exercise Tracker events
+calendar_id = "s445mshit9o9givlu4gkinrn80@group.calendar.google.com"
 response = service.list_events(calendar_id,
-                               max_results:   10,
                                single_events: true,
-                               order_by:      "startTime",
-                               time_min:      DateTime.now.rfc3339)
+                               order_by:      "startTime")
+puts "Upcoming events:"
+puts "No upcoming events found" if response.items.empty?
+response.items.each do |event|
+  start = event.start.date || event.start.date_time
+  puts "- #{event.summary} (#{start})"
+end
+
+# Fetch all Professional Development Tracker events
+calendar_id = "du558t22rgdvudpp2jsig48c2c@group.calendar.google.com"
+response = service.list_events(calendar_id,
+                               single_events: true,
+                               order_by:      "startTime")
 puts "Upcoming events:"
 puts "No upcoming events found" if response.items.empty?
 response.items.each do |event|
