@@ -50,8 +50,9 @@ response = service.list_events(calendar_id,
 puts "Upcoming events:"
 puts "No upcoming events found" if response.items.empty?
 response.items.each do |event|
-  start = event.start.date || event.start.date_time
+  start = event.start.date_time
   puts "- #{event.summary} (#{start})"
+  puts "end time: #{event.end.date_time}"
 end
 
 # Fetch all Professional Development Tracker events
