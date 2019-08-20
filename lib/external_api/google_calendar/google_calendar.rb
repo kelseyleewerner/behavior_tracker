@@ -47,22 +47,51 @@ calendar_id = "s445mshit9o9givlu4gkinrn80@group.calendar.google.com"
 response = service.list_events(calendar_id,
                                single_events: true,
                                order_by:      "startTime")
-puts "Upcoming events:"
-puts "No upcoming events found" if response.items.empty?
-response.items.each do |event|
-  start = event.start.date_time
-  puts "- #{event.summary} (#{start})"
-  puts "end time: #{event.end.date_time}"
+# puts "Upcoming events:"
+# puts "No upcoming events found" if response.items.empty?
+# response.items.each do |event|
+#   start = event.start.date_time
+#   puts "- #{event.summary} (#{start})"
+#   puts "end time: #{event.end.date_time}"
+# end
+
+# # Fetch all Professional Development Tracker events
+# calendar_id = "du558t22rgdvudpp2jsig48c2c@group.calendar.google.com"
+# response = service.list_events(calendar_id,
+#                                single_events: true,
+#                                order_by:      "startTime")
+# puts "Upcoming events:"
+# puts "No upcoming events found" if response.items.empty?
+# response.items.each do |event|
+#   start = event.start.date || event.start.date_time
+#   puts "- #{event.summary} (#{start})"
+# end
+
+
+
+class GoogleCalendarApi
+  attr_reader :google_calendar_service, :calendar_id, :calendar_title, :calendar_events
+  
+  def initialize(google_calendar_service, calendar_id)
+    @google_calendar_service = google_calendar_service
+    @calendar_id = calendar_id
+  end
+
+  def fetch_calendar_title
+    @calendar_title = google_calendar_service.get_calendar(@calendar_id).summary
+  end
+
+  def fetch_calendar_events
+    @calendar_events = google_calendar_service.list_events(calendar_id, single_events: true, order_by: "startTime").items
+  end
 end
 
-# Fetch all Professional Development Tracker events
-calendar_id = "du558t22rgdvudpp2jsig48c2c@group.calendar.google.com"
-response = service.list_events(calendar_id,
-                               single_events: true,
-                               order_by:      "startTime")
-puts "Upcoming events:"
-puts "No upcoming events found" if response.items.empty?
-response.items.each do |event|
-  start = event.start.date || event.start.date_time
-  puts "- #{event.summary} (#{start})"
-end
+
+googleCal = GoogleCalendarApi.new service, "s445mshit9o9givlu4gkinrn80@group.calendar.google.com"
+puts googleCal.calendar_id
+puts "-----------------------------------------------------"
+googleCal.fetch_calendar_title
+puts googleCal.calendar_title
+puts "-----------------------------------------------------"
+googleCal.fetch_calendar_events
+pp googleCal.calendar_events

@@ -4,6 +4,7 @@ namespace :google_calendar do
     end
 end
 
+# have a class that calls the api, then another class that translate the data i get back into the form i want to put into the database, then third class to actually save that formatted data into the database
 # want to be able to use this command to get data and move to database
 # want to be idempotent
-# still don't totally understand why doing this as a rake task
+
