@@ -5,12 +5,8 @@ namespace :google_calendar do
         googleCal.fetch_calendar_title
         googleCal.fetch_calendar_events
 
-        # p googleCal.calendar_events[0]
-        blah = GoogleCalDataFormatter.new googleCal
+        formattedGoogleCal = GoogleCalDataFormatter.new googleCal
         p blah.events[0][:duration]
-        # blah.events.each do |event|
-        #     p event[:description]
-        # end
     end
 end
 
