@@ -7,7 +7,7 @@ namespace :google_calendar do
 
         # p googleCal.calendar_events[0]
         blah = GoogleCalDataFormatter.new googleCal
-        p blah.events[0][:date]
+        p blah.events[0][:duration]
         # blah.events.each do |event|
         #     p event[:description]
         # end
