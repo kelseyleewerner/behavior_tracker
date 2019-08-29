@@ -3,8 +3,13 @@ namespace :google_calendar do
         require "external_api/google_calendar/google_calendar_api"
         googleCal = GoogleCalendarApi.new GOOGLE_CALENDAR_SERVICE, "s445mshit9o9givlu4gkinrn80@group.calendar.google.com"
         googleCal.fetch_calendar_title
+        googleCal.fetch_calendar_events
+
+        # p googleCal.calendar_events[0]
         blah = GoogleCalDataFormatter.new googleCal
-        puts blah.tracker_type
+        blah.events.each do |event|
+            p event[:description]
+        end
     end
 end
 
