@@ -11,7 +11,8 @@ class GoogleCalDataFormatter
         google_calendar.calendar_events.each do |event|
             new_event = {
                 summary: event.summary,
-                description: event.description
+                description: event.description,
+                date: event.start.date_time.to_date
             }
             events.push new_event
         end
