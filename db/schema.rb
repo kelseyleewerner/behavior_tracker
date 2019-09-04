@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_31_002040) do
+ActiveRecord::Schema.define(version: 2019_09_03_230558) do
 
   create_table "events", force: :cascade do |t|
     t.string "tracker_type"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 2019_07_31_002040) do
     t.integer "duration"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "external_identifier"
   end
 
 end

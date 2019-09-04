@@ -13,7 +13,8 @@ class GoogleCalDataFormatter
                 summary: event.summary,
                 description: event.description,
                 date: event.start.date_time.to_date,
-                duration: event.end.date_time.to_i - event.start.date_time.to_i
+                duration: event.end.date_time.to_i - event.start.date_time.to_i,
+                external_id: event.id
             }
             events.push new_event
         end
