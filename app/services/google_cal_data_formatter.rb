@@ -10,11 +10,12 @@ class GoogleCalDataFormatter
         events = []
         google_calendar.calendar_events.each do |event|
             new_event = {
+                tracker_type: @tracker_type,
                 summary: event.summary,
                 description: event.description,
                 date: event.start.date_time.to_date,
                 duration: event.end.date_time.to_i - event.start.date_time.to_i,
-                external_id: event.id
+                external_identifier: event.id
             }
             events.push new_event
         end
