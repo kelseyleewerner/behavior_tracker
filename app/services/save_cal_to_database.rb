@@ -5,6 +5,7 @@ class SaveCalToDatabase
 
     def update_database
         save_to_database
+        delete_from_database
     end
 
     private
@@ -22,6 +23,12 @@ class SaveCalToDatabase
             found_event.update description: event[:description] unless event[:description] == found_event.description
             found_event.update date: event[:date] unless event[:date] == found_event.date
             found_event.update duration: event[:duration] unless event[:duration] == found_event.duration
+        end
+    end
+
+    def delete_from_database
+        Event.all.each do |database_event|
+           Event.destroy database_event.id unless @event_list.any? { |event| event[:external_identifier] == database_event.external_identifier }
         end
     end
 end
